@@ -36,7 +36,7 @@ public class MyPlayer : MonoBehaviour
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
-        facingLeft = true;
+		facingLeft = true;
 	}
 
     // Update is called once per frame
