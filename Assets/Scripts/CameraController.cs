@@ -23,7 +23,7 @@ public class CameraController : MonoBehaviour {
 //			Vector2 destination = transform.position + delta;
 //			transform.position = point //Vector2.SmoothDamp(transform.position, destination, velocity, dampTime);
 			//camera.transform.position = point;
-			print(point.ToString() + " --- " + camera.transform.position.ToString());
+//			print(point.ToString() + " --- " + camera.transform.position.ToString());
 		}
 		//print( "  TARGET --- " + target.ToString());
 	}

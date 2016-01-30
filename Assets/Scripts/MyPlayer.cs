@@ -17,7 +17,16 @@ public class MyPlayer : MonoBehaviour
     private float movementSpeed;
 
     [SerializeField]
-    private float groundRadius;
+	private float groundRadius;
+
+	[SerializeField]
+	int coins = 0;
+
+	[SerializeField]
+	bool flagTaken;
+
+	[SerializeField]
+	private string nextScene;
 
     private bool facingLeft;
 
@@ -43,6 +52,7 @@ public class MyPlayer : MonoBehaviour
     void Update()
     {
         HandleInput();
+		FixedUpdate ();
     }
 
 	void FixedUpdate ()
@@ -63,7 +73,7 @@ public class MyPlayer : MonoBehaviour
 
     private void HandleMovement(float horizontal)
     {
-        Debug.Log(myRigidbody.velocity.y);
+//        Debug.Log(myRigidbody.velocity.y);
 
         if (myRigidbody.velocity.y < 0 && !isGrounded)
         {
@@ -113,23 +123,27 @@ public class MyPlayer : MonoBehaviour
 
     private bool IsGrounded()
     {
+		bool grounded = false;
+		//Note: If walking over a diagonal floor, y velocity is < = and you cannot jump.
 //        if (myRigidbody.velocity.y <= 0)
 //        {
             foreach (Transform point in groundPoints)
             {
-                Collider2D[] colliders = Physics2D.OverlapCircleAll(point.position, groundRadius, whatIsGround);
-                for (int i = 0; i < colliders.Length; i++)
-                {
-                    if (colliders[i].gameObject != gameObject)
-                    {
-                        myAnimator.ResetTrigger("jump");
-                        myAnimator.SetBool("land", false);
-                        return true;
-                    }
-                }
+				grounded = Physics2D.OverlapCircle(point.position, groundRadius, whatIsGround);
+//				print ("Grounded " + grounded.ToString());
+//                for (int i = 0; i < colliders.Length; i++)
+//                {
+//                    if (colliders[i].gameObject != gameObject)
+//                    {
+//                        myAnimator.ResetTrigger("jump");
+//						myAnimator.SetBool("land", false);
+//                        return true;
+//                    }
+//                }
             }
-//        }
-        return false;
+		//        }
+//		print ("whatIsGround: " + whatIsGround.ToString());
+		return grounded;
     }
 
     private void HandleLayers()
@@ -143,4 +157,22 @@ public class MyPlayer : MonoBehaviour
             myAnimator.SetLayerWeight(1, 1);
         }
     }
+	void OnTriggerEnter2D(Collider2D other) {
+		if (other.gameObject.CompareTag ("Flag"))
+		{
+			//Win condition
+			print ("Flag picked");
+			gameScene2();
+		} else if (other.gameObject.CompareTag ("Pickups"))
+		{
+			other.gameObject.SetActive (false);
+			coins++;
+		}
+	}
+
+	public void gameScene2() {
+		//float fadeTime = GameObject.Find ("scene2Choose").GetComponent<fading>().BeginFade(1);
+		//yield return new WaitForSeconds(fadeTime);
+		Application.LoadLevel(nextScene);
+	}
 }
