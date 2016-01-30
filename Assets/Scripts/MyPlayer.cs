@@ -49,7 +49,8 @@ public class MyPlayer : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
 
-        isGrounded = IsGrounded();
+		isGrounded = IsGrounded();
+		myAnimator.SetBool("isGrounded", isGrounded);
 
         HandleMovement(horizontal);
 
@@ -64,23 +65,25 @@ public class MyPlayer : MonoBehaviour
     {
         Debug.Log(myRigidbody.velocity.y);
 
-        if (myRigidbody.velocity.y < 0)
+        if (myRigidbody.velocity.y < 0 && !isGrounded)
         {
-            myAnimator.SetBool("land", true);
+			myAnimator.SetBool("land", true);
         }
 
-        if (isGrounded || airControl)
-        {
-            myRigidbody.velocity = new Vector2(horizontal * movementSpeed, myRigidbody.velocity.y);
+		if (horizontal != 0)
+		{
+		    myRigidbody.velocity = new Vector2(horizontal * movementSpeed, myRigidbody.velocity.y);
         }
 
         if (isGrounded && isJump)
         {
-            isGrounded = false;
             myRigidbody.AddForce(new Vector2(0, jumpForce));
             myAnimator.SetTrigger("jump");
         }
-
+		
+		myAnimator.SetFloat("velocityY", myRigidbody.velocity.y);
+		myAnimator.SetFloat("velocityX", myRigidbody.velocity.x);
+		myAnimator.SetBool("isJump", isJump);
         myAnimator.SetFloat("speed", Mathf.Abs(horizontal));
     }
 
@@ -110,8 +113,8 @@ public class MyPlayer : MonoBehaviour
 
     private bool IsGrounded()
     {
-        if (myRigidbody.velocity.y <= 0)
-        {
+//        if (myRigidbody.velocity.y <= 0)
+//        {
             foreach (Transform point in groundPoints)
             {
                 Collider2D[] colliders = Physics2D.OverlapCircleAll(point.position, groundRadius, whatIsGround);
@@ -125,7 +128,7 @@ public class MyPlayer : MonoBehaviour
                     }
                 }
             }
-        }
+//        }
         return false;
     }
 
