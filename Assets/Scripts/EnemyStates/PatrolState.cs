@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 
 public class PatrolState : IEnemyState
 {
+
     private MyEnemy enemy;
 
     private float patrolTimer;
@@ -17,7 +16,6 @@ public class PatrolState : IEnemyState
 
     public void Execute()
     {
-        Debug.Log("patrolling");
         Patrol();
         enemy.Move();
     }
@@ -43,4 +41,5 @@ public class PatrolState : IEnemyState
             enemy.ChangeState(new IdleState());
         }
     }
+
 }

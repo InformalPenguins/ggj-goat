@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class MyPlayer : Character
 {
+
     [SerializeField]
     private LayerMask whatIsGround;
 
@@ -10,13 +10,13 @@ public class MyPlayer : Character
     private Transform[] groundPoints;
 
     [SerializeField]
-	private float groundRadius;
+    private float groundRadius;
 
     [SerializeField]
-    int coins = 0;
+    private int coins = 0;
 
     [SerializeField]
-    bool flagTaken;
+    private bool flagTaken;
 
     [SerializeField]
     private string nextScene;
@@ -31,25 +31,21 @@ public class MyPlayer : Character
     [SerializeField]
     private float jumpForce;
 
-	private BoxCollider2D boxCollider2D;
+    private BoxCollider2D boxCollider2D;
 
     public Rigidbody2D MyRigidbody { get; set; }
 
-	private Vector3 initialPosition;
+    private Vector3 initialPosition;
+
     // Use this for initialization
-    public override void Start ()
+    public override void Start()
     {
-		MyRigidbody = GetComponent<Rigidbody2D>();
-		boxCollider2D = GetComponent<BoxCollider2D>();
-		MyAnimator = GetComponent<Animator>();
-		facingLeft = true;
-		coins = GetCoinScore ();
-//    public override void Start ()
-//    {
         base.Start();
         MyRigidbody = GetComponent<Rigidbody2D>();
-		initialPosition = transform.position;
-	}
+        boxCollider2D = GetComponent<BoxCollider2D>();
+        coins = GetCoinScore();
+        initialPosition = transform.position;
+    }
 
     // Update is called once per frame
     void Update()
@@ -57,12 +53,12 @@ public class MyPlayer : Character
         HandleInput();
     }
 
-	void FixedUpdate ()
+    void FixedUpdate()
     {
         float horizontal = Input.GetAxis("Horizontal");
 
-		isGrounded = IsGrounded();
-		MyAnimator.SetBool("isGrounded", isGrounded);
+        isGrounded = IsGrounded();
+        MyAnimator.SetBool("isGrounded", isGrounded);
 
         HandleMovement(horizontal);
 
@@ -72,44 +68,49 @@ public class MyPlayer : Character
 
         ResetValues();
 
-		checkVerticalPosition ();
+        checkVerticalPosition();
     }
-	private void checkVerticalPosition(){
-		if(transform.position.y < -20f){
-			die ();
-		}
-	}
-	private void die(){
-		transform.position = initialPosition;
-		//lives -- 
-		// if lives == 0 gameover
 
-	}
+    private void checkVerticalPosition()
+    {
+        if (transform.position.y < -20f)
+        {
+            die();
+        }
+    }
+
+    private void die()
+    {
+        transform.position = initialPosition;
+        //lives -- 
+        // if lives == 0 gameover
+
+    }
 
     private void HandleMovement(float horizontal)
     {
+        if (horizontal != 0 && (isGrounded || Mathf.Abs(MyRigidbody.velocity.y) > 1))
+        {
+            MyRigidbody.velocity = new Vector2(horizontal * movementSpeed, MyRigidbody.velocity.y);
+        }
 
-		if (horizontal != 0 && (isGrounded || Mathf.Abs(MyRigidbody.velocity.y) > 1))
-		{
-		    MyRigidbody.velocity = new Vector2(horizontal * movementSpeed, MyRigidbody.velocity.y);
-		}
-
-		if (isGrounded && isJump)
+        if (isGrounded && isJump)
         {
             MyRigidbody.AddForce(new Vector2(0, jumpForce));
             MyAnimator.SetTrigger("jump");
         }
-		
-		if (MyRigidbody.velocity.y < 0 && !isGrounded)
-		{
-			MyAnimator.SetBool("land", true);
-		//} else if (!isGrounded){
-		} else {
-			MyAnimator.SetBool("land", false);
-		}
-		MyAnimator.SetFloat("velocityY", MyRigidbody.velocity.y);
-		MyAnimator.SetFloat("velocityX", MyRigidbody.velocity.x);
-		MyAnimator.SetBool("isJump", isJump);
+
+        if (MyRigidbody.velocity.y < 0 && !isGrounded)
+        {
+            MyAnimator.SetBool("land", true);
+        }
+        else {
+            MyAnimator.SetBool("land", false);
+        }
+
+        MyAnimator.SetFloat("velocityY", MyRigidbody.velocity.y);
+        MyAnimator.SetFloat("velocityX", MyRigidbody.velocity.x);
+        MyAnimator.SetBool("isJump", isJump);
         MyAnimator.SetFloat("speed", Mathf.Abs(horizontal));
     }
 
@@ -136,16 +137,17 @@ public class MyPlayer : Character
 
     private bool IsGrounded()
     {
-		bool grounded = false;
-		//Note: If walking over a diagonal floor, y velocity is < = and you cannot jump.
+        bool grounded = false;
+        //Note: If walking over a diagonal floor, y velocity is < = and you cannot jump.
         foreach (Transform point in groundPoints)
         {
-			grounded = Physics2D.OverlapCircle(point.position, groundRadius, whatIsGround);
-			if(grounded){
-				break;
-			}
+            grounded = Physics2D.OverlapCircle(point.position, groundRadius, whatIsGround);
+            if (grounded)
+            {
+                break;
+            }
         }
-		return grounded;
+        return grounded;
     }
 
     private void HandleLayers()
@@ -159,40 +161,52 @@ public class MyPlayer : Character
             MyAnimator.SetLayerWeight(1, 1);
         }
     }
-	void OnTriggerEnter2D(Collider2D other) {
-		GameObject o = other.gameObject;
-		if (o.CompareTag ("Pickups")) {
-			//			Vector2 otherCenter = new Vector2(o.transform.position.x, o.transform.position.y);
-			//			if(boxCollider2D.OverlapPoint(otherCenter)){
-			other.gameObject.SetActive (false);
-			coins++;
-			//			}
-			//			print ("boxCollider2D : " + boxCollider2D.transform.position.ToString());
-			//			print ("otherCenter : " + otherCenter.ToString());
-		} else if (o.CompareTag ("Flag")) {
-			//Win condition
- 			print ("Flag picked");
-			SaveCoinScore(coins);
-			loadNextScene();
-		}
-	}
 
-	public void loadNextScene() {
-		//float fadeTime = GameObject.Find ("scene2Choose").GetComponent<fading>().BeginFade(1);
-		//yield return new WaitForSeconds(fadeTime);
-		int currentLv = PlayerPrefs.GetInt ("Current", 1);
-		currentLv++;
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        GameObject o = other.gameObject;
+        if (o.CompareTag("Pickups"))
+        {
+            //			Vector2 otherCenter = new Vector2(o.transform.position.x, o.transform.position.y);
+            //			if(boxCollider2D.OverlapPoint(otherCenter)){
+            other.gameObject.SetActive(false);
+            coins++;
+            //			}
+            //			print ("boxCollider2D : " + boxCollider2D.transform.position.ToString());
+            //			print ("otherCenter : " + otherCenter.ToString());
+        }
+        else if (o.CompareTag("Flag"))
+        {
+            //Win condition
+            print("Flag picked");
+            SaveCoinScore(coins);
+            loadNextScene();
+        }
+    }
 
-		if(currentLv > 4){ // Update if adding more levels.
-			currentLv = 1;
-		}
-		PlayerPrefs.SetInt ("Current", currentLv);
-		Application.LoadLevel("Level" + currentLv);
-	}
-	private void SaveCoinScore(int coins) {
-		PlayerPrefs.SetInt("Score", coins);
-	}
-	int GetCoinScore() {
-		return PlayerPrefs.GetInt("Score", 0);
-	}
+    public void loadNextScene()
+    {
+        //float fadeTime = GameObject.Find ("scene2Choose").GetComponent<fading>().BeginFade(1);
+        //yield return new WaitForSeconds(fadeTime);
+        int currentLv = PlayerPrefs.GetInt("Current", 1);
+        currentLv++;
+
+        if (currentLv > 4)
+        { // Update if adding more levels.
+            currentLv = 1;
+        }
+        PlayerPrefs.SetInt("Current", currentLv);
+        Application.LoadLevel("Level" + currentLv);
+    }
+
+    private void SaveCoinScore(int coins)
+    {
+        PlayerPrefs.SetInt("Score", coins);
+    }
+
+    int GetCoinScore()
+    {
+        return PlayerPrefs.GetInt("Score", 0);
+    }
+
 }

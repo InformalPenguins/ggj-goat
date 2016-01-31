@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 
 public class IdleState : IEnemyState
 {
+
     private MyEnemy enemy;
 
     private float idleTimer;
@@ -17,7 +16,6 @@ public class IdleState : IEnemyState
 
     public void Execute()
     {
-        Debug.Log("Idling");
         Idle();
     }
 
@@ -40,4 +38,5 @@ public class IdleState : IEnemyState
             enemy.ChangeState(new PatrolState());
         }
     }
+
 }

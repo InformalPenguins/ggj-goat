@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public interface IEnemyState
 {
+
     void Execute();
 
     void Enter(MyEnemy enemy);
@@ -10,4 +10,5 @@ public interface IEnemyState
     void Exit();
 
     void OnTriggerEnter(Collider2D other);
+
 }
