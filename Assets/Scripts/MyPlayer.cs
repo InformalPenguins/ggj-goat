@@ -183,7 +183,7 @@ public class MyPlayer : Character
 		int currentLv = PlayerPrefs.GetInt ("Current", 1);
 		currentLv++;
 
-		if(currentLv > 3){ // Update if adding more levels.
+		if(currentLv > 4){ // Update if adding more levels.
 			currentLv = 1;
 		}
 		PlayerPrefs.SetInt ("Current", currentLv);
