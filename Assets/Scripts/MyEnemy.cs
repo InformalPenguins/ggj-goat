@@ -30,4 +30,21 @@ public class MyEnemy : Character
 
         currentState.Enter(this);
     }
+
+    public void Move()
+    {
+        MyAnimator.SetFloat("speed", 1);
+
+        transform.Translate(GetDirection() * movementSpeed * Time.deltaTime);
+    }
+
+    public Vector2 GetDirection()
+    {
+        return facingLeft ? Vector2.left : Vector2.right;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        currentState.OnTriggerEnter(other);
+    }
 }

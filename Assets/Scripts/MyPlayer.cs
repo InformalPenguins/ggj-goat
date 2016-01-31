@@ -125,7 +125,7 @@ public class MyPlayer : Character
     {
         if (horizontal > 0 && facingLeft || horizontal < 0 && !facingLeft)
         {
-            changeDirection();
+            ChangeDirection();
         }
     }
 
