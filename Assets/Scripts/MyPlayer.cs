@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MyPlayer : MonoBehaviour
+public class MyPlayer : Character
 {
     private Rigidbody2D myRigidbody;
-
-    private Animator myAnimator;
-
+    
     [SerializeField]
     private LayerMask whatIsGround;
 
@@ -14,21 +12,16 @@ public class MyPlayer : MonoBehaviour
     private Transform[] groundPoints;
 
     [SerializeField]
-    private float movementSpeed;
-
-    [SerializeField]
 	private float groundRadius;
 
-	[SerializeField]
-	int coins = 0;
+    [SerializeField]
+    int coins = 0;
 
-	[SerializeField]
-	bool flagTaken;
+    [SerializeField]
+    bool flagTaken;
 
-	[SerializeField]
-	private string nextScene;
-
-    private bool facingLeft;
+    [SerializeField]
+    private string nextScene;
 
     private bool isGrounded;
 
@@ -50,13 +43,16 @@ public class MyPlayer : MonoBehaviour
         myAnimator = GetComponent<Animator>();
 		facingLeft = true;
 		coins = GetCoinScore ();
+//    public override void Start ()
+//    {
+        base.Start();
+        myRigidbody = GetComponent<Rigidbody2D>();
 	}
 
     // Update is called once per frame
     void Update()
     {
         HandleInput();
-		FixedUpdate ();
     }
 
 	void FixedUpdate ()
@@ -79,8 +75,6 @@ public class MyPlayer : MonoBehaviour
 
     private void HandleMovement(float horizontal)
     {
-//        Debug.Log(myRigidbody.velocity.y);
-
         if (myRigidbody.velocity.y < 0 && !isGrounded)
         {
 			myAnimator.SetBool("land", true);
@@ -117,10 +111,7 @@ public class MyPlayer : MonoBehaviour
     {
         if (horizontal > 0 && facingLeft || horizontal < 0 && !facingLeft)
         {
-            facingLeft = !facingLeft;
-            Vector3 myScale = transform.localScale;
-            myScale.x *= -1;
-            transform.localScale = myScale;
+            changeDirection();
         }
     }
 
