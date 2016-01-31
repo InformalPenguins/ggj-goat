@@ -26,10 +26,13 @@ public class StartGameController : MonoBehaviour
 
     private void startGame()
     {
-        //PlayerPrefs.SetInt("SeenIntro", 1);
+        //Reset score
         PlayerPrefs.SetInt("Score", 0);
-        PlayerPrefs.SetInt("Lives", 3);
-        Application.LoadLevel("intro");
+		PlayerPrefs.SetInt("Lives", 3);
+		PlayerPrefs.SetInt("Current", 1);
+//		Application.LoadLevel("intro");
+		//Loads intro, or lv 1 for now.
+		Application.LoadLevel("Level1");
     }
 
     void OnMouseEnter()

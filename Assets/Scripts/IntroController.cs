@@ -64,7 +64,7 @@ public class IntroController : MonoBehaviour
             currentIdx++;
             StartCoroutine(WaitFunction());
         }
-        if (Input.GetMouseButtonDown(0) && seenIntro)
+		if (seenIntro && ( Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space) ))
         {
             nextScene();
         }

@@ -18,9 +18,6 @@ public class MyPlayer : Character
     [SerializeField]
     private bool flagTaken;
 
-    [SerializeField]
-    private string nextScene;
-
     private bool isGrounded;
 
     private bool isJump;
@@ -82,9 +79,10 @@ public class MyPlayer : Character
     private void die()
     {
         transform.position = initialPosition;
+		HudLivesManager.lives -= 1;
+		PlayerPrefs.SetInt("Lives", HudLivesManager.lives);
         //lives -- 
         // if lives == 0 gameover
-
     }
 
     private void HandleMovement(float horizontal)
@@ -170,7 +168,8 @@ public class MyPlayer : Character
             //			Vector2 otherCenter = new Vector2(o.transform.position.x, o.transform.position.y);
             //			if(boxCollider2D.OverlapPoint(otherCenter)){
             other.gameObject.SetActive(false);
-            coins++;
+			coins++;
+			SaveCoinScore(coins, false);
             //			}
             //			print ("boxCollider2D : " + boxCollider2D.transform.position.ToString());
             //			print ("otherCenter : " + otherCenter.ToString());
@@ -179,7 +178,7 @@ public class MyPlayer : Character
         {
             //Win condition
             print("Flag picked");
-            SaveCoinScore(coins);
+            SaveCoinScore(coins, true);
             loadNextScene();
         }
     }
@@ -199,9 +198,12 @@ public class MyPlayer : Character
         Application.LoadLevel("Level" + currentLv);
     }
 
-    private void SaveCoinScore(int coins)
+    private void SaveCoinScore(int coins, bool toPrefs)
     {
-        PlayerPrefs.SetInt("Score", coins);
+		HudScoreManager.score = coins;
+		if (toPrefs) {
+			PlayerPrefs.SetInt ("Score", coins);
+		}
     }
 
     int GetCoinScore()
