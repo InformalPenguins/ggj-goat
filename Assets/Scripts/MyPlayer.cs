@@ -3,8 +3,6 @@ using System.Collections;
 
 public class MyPlayer : Character
 {
-    private Rigidbody2D myRigidbody;
-    
     [SerializeField]
     private LayerMask whatIsGround;
 
@@ -35,18 +33,20 @@ public class MyPlayer : Character
 
 	private BoxCollider2D boxCollider2D;
 
-	// Use this for initialization
-	void Start ()
+    public Rigidbody2D MyRigidbody { get; set; }
+
+    // Use this for initialization
+    public override void Start ()
     {
-		myRigidbody = GetComponent<Rigidbody2D>();
+		MyRigidbody = GetComponent<Rigidbody2D>();
 		boxCollider2D = GetComponent<BoxCollider2D>();
-        myAnimator = GetComponent<Animator>();
+		MyAnimator = GetComponent<Animator>();
 		facingLeft = true;
 		coins = GetCoinScore ();
 //    public override void Start ()
 //    {
         base.Start();
-        myRigidbody = GetComponent<Rigidbody2D>();
+        MyRigidbody = GetComponent<Rigidbody2D>();
 	}
 
     // Update is called once per frame
@@ -60,8 +60,7 @@ public class MyPlayer : Character
         float horizontal = Input.GetAxis("Horizontal");
 
 		isGrounded = IsGrounded();
-		myAnimator.SetBool("isGrounded", isGrounded);
-		//myAnimator.SetBool("land", !isGrounded);
+		MyAnimator.SetBool("isGrounded", isGrounded);
 
         HandleMovement(horizontal);
 
@@ -75,28 +74,28 @@ public class MyPlayer : Character
 
     private void HandleMovement(float horizontal)
     {
-        if (myRigidbody.velocity.y < 0 && !isGrounded)
+        if (MyRigidbody.velocity.y < 0 && !isGrounded)
         {
-			myAnimator.SetBool("land", true);
+			MyAnimator.SetBool("land", true);
 		} else if (!isGrounded){
-			myAnimator.SetBool("land", false);
+			MyAnimator.SetBool("land", false);
 		}
 
-		if (horizontal != 0 && (isGrounded || myRigidbody.velocity.y != 0))
+		if (horizontal != 0 && (isGrounded || MyRigidbody.velocity.y != 0))
 		{
-		    myRigidbody.velocity = new Vector2(horizontal * movementSpeed, myRigidbody.velocity.y);
+		    MyRigidbody.velocity = new Vector2(horizontal * movementSpeed, MyRigidbody.velocity.y);
         }
 
         if (isGrounded && isJump)
         {
-            myRigidbody.AddForce(new Vector2(0, jumpForce));
-            myAnimator.SetTrigger("jump");
+            MyRigidbody.AddForce(new Vector2(0, jumpForce));
+            MyAnimator.SetTrigger("jump");
         }
 		
-		myAnimator.SetFloat("velocityY", myRigidbody.velocity.y);
-		myAnimator.SetFloat("velocityX", myRigidbody.velocity.x);
-		myAnimator.SetBool("isJump", isJump);
-        myAnimator.SetFloat("speed", Mathf.Abs(horizontal));
+		MyAnimator.SetFloat("velocityY", MyRigidbody.velocity.y);
+		MyAnimator.SetFloat("velocityX", MyRigidbody.velocity.x);
+		MyAnimator.SetBool("isJump", isJump);
+        MyAnimator.SetFloat("speed", Mathf.Abs(horizontal));
     }
 
     private void HandleInput()
@@ -124,7 +123,7 @@ public class MyPlayer : Character
     {
 		bool grounded = false;
 		//Note: If walking over a diagonal floor, y velocity is < = and you cannot jump.
-//        if (myRigidbody.velocity.y <= 0)
+//        if (MyRigidbody.velocity.y <= 0)
 //        {
             foreach (Transform point in groundPoints)
             {
@@ -137,8 +136,8 @@ public class MyPlayer : Character
 //                {
 //                    if (colliders[i].gameObject != gameObject)
 //                    {
-//                        myAnimator.ResetTrigger("jump");
-//						myAnimator.SetBool("land", false);
+//                        MyAnimator.ResetTrigger("jump");
+//						MyAnimator.SetBool("land", false);
 //                        return true;
 //                    }
 //                }
@@ -152,11 +151,11 @@ public class MyPlayer : Character
     {
         if (isGrounded)
         {
-            myAnimator.SetLayerWeight(1, 0);
+            MyAnimator.SetLayerWeight(1, 0);
         }
         else
         {
-            myAnimator.SetLayerWeight(1, 1);
+            MyAnimator.SetLayerWeight(1, 1);
         }
     }
 	void OnTriggerEnter2D(Collider2D other) {
