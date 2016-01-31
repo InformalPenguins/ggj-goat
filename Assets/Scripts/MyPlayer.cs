@@ -69,29 +69,29 @@ public class MyPlayer : Character
         HandleLayers();
 
         ResetValues();
-		print ("Coins: " + coins);
     }
 
     private void HandleMovement(float horizontal)
     {
-        if (MyRigidbody.velocity.y < 0 && !isGrounded)
-        {
-			MyAnimator.SetBool("land", true);
-		} else if (!isGrounded){
-			MyAnimator.SetBool("land", false);
-		}
 
-		if (horizontal != 0 && (isGrounded || MyRigidbody.velocity.y != 0))
+		if (horizontal != 0 && (isGrounded || Mathf.Abs(MyRigidbody.velocity.y) > 1))
 		{
 		    MyRigidbody.velocity = new Vector2(horizontal * movementSpeed, MyRigidbody.velocity.y);
-        }
+		}
 
-        if (isGrounded && isJump)
+		if (isGrounded && isJump)
         {
             MyRigidbody.AddForce(new Vector2(0, jumpForce));
             MyAnimator.SetTrigger("jump");
         }
 		
+		if (MyRigidbody.velocity.y < 0 && !isGrounded)
+		{
+			MyAnimator.SetBool("land", true);
+		//} else if (!isGrounded){
+		} else {
+			MyAnimator.SetBool("land", false);
+		}
 		MyAnimator.SetFloat("velocityY", MyRigidbody.velocity.y);
 		MyAnimator.SetFloat("velocityX", MyRigidbody.velocity.x);
 		MyAnimator.SetBool("isJump", isJump);
