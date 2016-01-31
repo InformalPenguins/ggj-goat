@@ -1,9 +1,26 @@
 fileFormatVersion: 2
 guid: d914d24373a081842b52ecfbf6d8bd39
-timeCreated: 1454192617
+timeCreated: 1454197843
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: man_attack_0
+    21300002: man_attack_1
+    21300004: man_attack_2
+    21300006: man_attack_3
+    21300008: man_attack_4
+    21300010: man_attack_5
+    21300012: man_attack_6
+    21300014: man_attack_7
+    21300016: man_attack_8
+    21300018: man_attack_9
+    21300020: man_attack_10
+    21300022: man_attack_11
+    21300024: man_attack_12
+    21300026: man_attack_13
+    21300028: man_attack_14
+    21300030: man_attack_15
+    21300032: man_attack_16
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -27,10 +44,10 @@ TextureImporter:
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
-  maxTextureSize: 2048
+  maxTextureSize: 4096
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -38,7 +55,7 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -49,7 +66,177 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: man_attack_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 655
+        height: 569
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: man_attack_1
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 0
+        width: 655
+        height: 569
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: man_attack_2
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 0
+        width: 655
+        height: 569
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: man_attack_3
+      rect:
+        serializedVersion: 2
+        x: 1965
+        y: 0
+        width: 655
+        height: 569
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: man_attack_4
+      rect:
+        serializedVersion: 2
+        x: 2620
+        y: 0
+        width: 655
+        height: 569
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: man_attack_5
+      rect:
+        serializedVersion: 2
+        x: 3275
+        y: 0
+        width: 655
+        height: 569
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: man_attack_6
+      rect:
+        serializedVersion: 2
+        x: 3930
+        y: 0
+        width: 655
+        height: 569
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: man_attack_7
+      rect:
+        serializedVersion: 2
+        x: 4585
+        y: 0
+        width: 655
+        height: 569
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: man_attack_8
+      rect:
+        serializedVersion: 2
+        x: 5240
+        y: 0
+        width: 655
+        height: 569
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: man_attack_9
+      rect:
+        serializedVersion: 2
+        x: 5895
+        y: 0
+        width: 655
+        height: 569
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: man_attack_10
+      rect:
+        serializedVersion: 2
+        x: 6550
+        y: 0
+        width: 655
+        height: 569
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: man_attack_11
+      rect:
+        serializedVersion: 2
+        x: 7205
+        y: 0
+        width: 655
+        height: 569
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: man_attack_12
+      rect:
+        serializedVersion: 2
+        x: 7860
+        y: 0
+        width: 655
+        height: 569
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: man_attack_13
+      rect:
+        serializedVersion: 2
+        x: 8515
+        y: 0
+        width: 655
+        height: 569
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: man_attack_14
+      rect:
+        serializedVersion: 2
+        x: 9170
+        y: 0
+        width: 655
+        height: 569
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: man_attack_15
+      rect:
+        serializedVersion: 2
+        x: 9825
+        y: 0
+        width: 655
+        height: 569
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: man_attack_16
+      rect:
+        serializedVersion: 2
+        x: 10480
+        y: 0
+        width: 655
+        height: 569
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 

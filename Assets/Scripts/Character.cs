@@ -2,17 +2,16 @@
 using System.Collections;
 
 public abstract class Character : MonoBehaviour {
-
-    protected Animator myAnimator;
-
     [SerializeField]
     protected float movementSpeed;
 
     protected bool facingLeft;
 
+    public Animator MyAnimator { get; set; }
+
     // Use this for initialization
     public virtual void Start () {
-        myAnimator = GetComponent<Animator>();
+        MyAnimator = GetComponent<Animator>();
         facingLeft = true;
     }
 

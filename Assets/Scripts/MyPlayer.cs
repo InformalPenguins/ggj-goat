@@ -3,8 +3,6 @@ using System.Collections;
 
 public class MyPlayer : Character
 {
-    private Rigidbody2D myRigidbody;
-    
     [SerializeField]
     private LayerMask whatIsGround;
 
@@ -33,11 +31,13 @@ public class MyPlayer : Character
     [SerializeField]
     private float jumpForce;
 
+    public Rigidbody2D MyRigidbody { get; set; }
+
     // Use this for initialization
     public override void Start ()
     {
         base.Start();
-        myRigidbody = GetComponent<Rigidbody2D>();
+        MyRigidbody = GetComponent<Rigidbody2D>();
 	}
 
     // Update is called once per frame
@@ -51,7 +51,7 @@ public class MyPlayer : Character
         float horizontal = Input.GetAxis("Horizontal");
 
 		isGrounded = IsGrounded();
-		myAnimator.SetBool("isGrounded", isGrounded);
+		MyAnimator.SetBool("isGrounded", isGrounded);
 
         HandleMovement(horizontal);
 
@@ -64,26 +64,26 @@ public class MyPlayer : Character
 
     private void HandleMovement(float horizontal)
     {
-        if (myRigidbody.velocity.y < 0 && !isGrounded)
+        if (MyRigidbody.velocity.y < 0 && !isGrounded)
         {
-			myAnimator.SetBool("land", true);
+			MyAnimator.SetBool("land", true);
         }
 
 		if (horizontal != 0)
 		{
-		    myRigidbody.velocity = new Vector2(horizontal * movementSpeed, myRigidbody.velocity.y);
+		    MyRigidbody.velocity = new Vector2(horizontal * movementSpeed, MyRigidbody.velocity.y);
         }
 
         if (isGrounded && isJump)
         {
-            myRigidbody.AddForce(new Vector2(0, jumpForce));
-            myAnimator.SetTrigger("jump");
+            MyRigidbody.AddForce(new Vector2(0, jumpForce));
+            MyAnimator.SetTrigger("jump");
         }
 		
-		myAnimator.SetFloat("velocityY", myRigidbody.velocity.y);
-		myAnimator.SetFloat("velocityX", myRigidbody.velocity.x);
-		myAnimator.SetBool("isJump", isJump);
-        myAnimator.SetFloat("speed", Mathf.Abs(horizontal));
+		MyAnimator.SetFloat("velocityY", MyRigidbody.velocity.y);
+		MyAnimator.SetFloat("velocityX", MyRigidbody.velocity.x);
+		MyAnimator.SetBool("isJump", isJump);
+        MyAnimator.SetFloat("speed", Mathf.Abs(horizontal));
     }
 
     private void HandleInput()
@@ -136,11 +136,11 @@ public class MyPlayer : Character
     {
         if (isGrounded)
         {
-            myAnimator.SetLayerWeight(1, 0);
+            MyAnimator.SetLayerWeight(1, 0);
         }
         else
         {
-            myAnimator.SetLayerWeight(1, 1);
+            MyAnimator.SetLayerWeight(1, 1);
         }
     }
 	void OnTriggerEnter2D(Collider2D other) {
