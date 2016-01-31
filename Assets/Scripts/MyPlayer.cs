@@ -40,12 +40,16 @@ public class MyPlayer : MonoBehaviour
     [SerializeField]
     private float jumpForce;
 
+	private BoxCollider2D boxCollider2D;
+
 	// Use this for initialization
 	void Start ()
     {
-        myRigidbody = GetComponent<Rigidbody2D>();
+		myRigidbody = GetComponent<Rigidbody2D>();
+		boxCollider2D = GetComponent<BoxCollider2D>();
         myAnimator = GetComponent<Animator>();
 		facingLeft = true;
+		coins = GetCoinScore ();
 	}
 
     // Update is called once per frame
@@ -61,6 +65,7 @@ public class MyPlayer : MonoBehaviour
 
 		isGrounded = IsGrounded();
 		myAnimator.SetBool("isGrounded", isGrounded);
+		//myAnimator.SetBool("land", !isGrounded);
 
         HandleMovement(horizontal);
 
@@ -69,6 +74,7 @@ public class MyPlayer : MonoBehaviour
         HandleLayers();
 
         ResetValues();
+		print ("Coins: " + coins);
     }
 
     private void HandleMovement(float horizontal)
@@ -78,9 +84,11 @@ public class MyPlayer : MonoBehaviour
         if (myRigidbody.velocity.y < 0 && !isGrounded)
         {
 			myAnimator.SetBool("land", true);
-        }
+		} else if (!isGrounded){
+			myAnimator.SetBool("land", false);
+		}
 
-		if (horizontal != 0)
+		if (horizontal != 0 && (isGrounded || myRigidbody.velocity.y != 0))
 		{
 		    myRigidbody.velocity = new Vector2(horizontal * movementSpeed, myRigidbody.velocity.y);
         }
@@ -130,6 +138,9 @@ public class MyPlayer : MonoBehaviour
             foreach (Transform point in groundPoints)
             {
 				grounded = Physics2D.OverlapCircle(point.position, groundRadius, whatIsGround);
+				if(grounded){
+					break;
+				}
 //				print ("Grounded " + grounded.ToString());
 //                for (int i = 0; i < colliders.Length; i++)
 //                {
@@ -158,21 +169,32 @@ public class MyPlayer : MonoBehaviour
         }
     }
 	void OnTriggerEnter2D(Collider2D other) {
-		if (other.gameObject.CompareTag ("Flag"))
-		{
-			//Win condition
-			print ("Flag picked");
-			gameScene2();
-		} else if (other.gameObject.CompareTag ("Pickups"))
-		{
+		GameObject o = other.gameObject;
+		if (o.CompareTag ("Pickups")) {
+			//			Vector2 otherCenter = new Vector2(o.transform.position.x, o.transform.position.y);
+			//			if(boxCollider2D.OverlapPoint(otherCenter)){
 			other.gameObject.SetActive (false);
 			coins++;
+			//			}
+			//			print ("boxCollider2D : " + boxCollider2D.transform.position.ToString());
+			//			print ("otherCenter : " + otherCenter.ToString());
+		} else if (o.CompareTag ("Flag")) {
+			//Win condition
+			print ("Flag picked");
+			SaveCoinScore(coins);
+			loadNextScene();
 		}
 	}
 
-	public void gameScene2() {
+	public void loadNextScene() {
 		//float fadeTime = GameObject.Find ("scene2Choose").GetComponent<fading>().BeginFade(1);
 		//yield return new WaitForSeconds(fadeTime);
 		Application.LoadLevel(nextScene);
+	}
+	private void SaveCoinScore(int coins) {
+		PlayerPrefs.SetInt("Score", coins);
+	}
+	int GetCoinScore() {
+		return PlayerPrefs.GetInt("Score", 0);
 	}
 }
