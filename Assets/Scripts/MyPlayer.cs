@@ -35,6 +35,7 @@ public class MyPlayer : Character
 
     public Rigidbody2D MyRigidbody { get; set; }
 
+	private Vector3 initialPosition;
     // Use this for initialization
     public override void Start ()
     {
@@ -47,6 +48,7 @@ public class MyPlayer : Character
 //    {
         base.Start();
         MyRigidbody = GetComponent<Rigidbody2D>();
+		initialPosition = transform.position;
 	}
 
     // Update is called once per frame
@@ -69,7 +71,20 @@ public class MyPlayer : Character
         HandleLayers();
 
         ResetValues();
+
+		checkVerticalPosition ();
     }
+	private void checkVerticalPosition(){
+		if(transform.position.y < -20f){
+			die ();
+		}
+	}
+	private void die(){
+		transform.position = initialPosition;
+		//lives -- 
+		// if lives == 0 gameover
+
+	}
 
     private void HandleMovement(float horizontal)
     {
@@ -123,27 +138,13 @@ public class MyPlayer : Character
     {
 		bool grounded = false;
 		//Note: If walking over a diagonal floor, y velocity is < = and you cannot jump.
-//        if (MyRigidbody.velocity.y <= 0)
-//        {
-            foreach (Transform point in groundPoints)
-            {
-				grounded = Physics2D.OverlapCircle(point.position, groundRadius, whatIsGround);
-				if(grounded){
-					break;
-				}
-//				print ("Grounded " + grounded.ToString());
-//                for (int i = 0; i < colliders.Length; i++)
-//                {
-//                    if (colliders[i].gameObject != gameObject)
-//                    {
-//                        MyAnimator.ResetTrigger("jump");
-//						MyAnimator.SetBool("land", false);
-//                        return true;
-//                    }
-//                }
-            }
-		//        }
-//		print ("whatIsGround: " + whatIsGround.ToString());
+        foreach (Transform point in groundPoints)
+        {
+			grounded = Physics2D.OverlapCircle(point.position, groundRadius, whatIsGround);
+			if(grounded){
+				break;
+			}
+        }
 		return grounded;
     }
 
@@ -179,7 +180,14 @@ public class MyPlayer : Character
 	public void loadNextScene() {
 		//float fadeTime = GameObject.Find ("scene2Choose").GetComponent<fading>().BeginFade(1);
 		//yield return new WaitForSeconds(fadeTime);
-		Application.LoadLevel(nextScene);
+		int currentLv = PlayerPrefs.GetInt ("Current", 1);
+		currentLv++;
+
+		if(currentLv > 3){ // Update if adding more levels.
+			currentLv = 1;
+		}
+		PlayerPrefs.SetInt ("Current", currentLv);
+		Application.LoadLevel("Level" + currentLv);
 	}
 	private void SaveCoinScore(int coins) {
 		PlayerPrefs.SetInt("Score", coins);

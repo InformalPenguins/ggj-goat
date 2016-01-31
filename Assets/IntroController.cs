@@ -32,6 +32,7 @@ public class IntroController : MonoBehaviour {
 	}
 	private void nextScene(){
 		PlayerPrefs.SetInt ("SeenIntro", 1);
+		PlayerPrefs.SetInt ("Current", 1);
 		Application.LoadLevel("Level1");
 	}
 	bool pending = false;
