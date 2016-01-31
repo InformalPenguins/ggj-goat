@@ -170,7 +170,7 @@ public class MyPlayer : Character
 			//			print ("otherCenter : " + otherCenter.ToString());
 		} else if (o.CompareTag ("Flag")) {
 			//Win condition
-			print ("Flag picked");
+ 			print ("Flag picked");
 			SaveCoinScore(coins);
 			loadNextScene();
 		}
