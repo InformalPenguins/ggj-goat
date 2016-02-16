@@ -9,7 +9,7 @@ public class MyEnemy : Character
     public override void Start()
     {
         base.Start();
-        ChangeState(new IdleState());
+        ChangeState(new PatrolState());
     }
 
     // Update is called once per frame

@@ -1,9 +1,13 @@
 fileFormatVersion: 2
 guid: e5a74538893ab4f8cac3eeb1891f175e
-timeCreated: 1454223478
+timeCreated: 1455581128
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: chicken_idle_0
+    21300002: chicken_idle_1
+    21300004: chicken_idle_2
+    21300006: chicken_idle_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -17,7 +21,7 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
@@ -30,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -38,18 +42,112 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: chicken_idle_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 180
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -90, y: 31}
+        - {x: -90, y: -53}
+        - {x: -37, y: -88}
+        - {x: -7, y: -88}
+        - {x: 90, y: -52}
+        - {x: 90, y: 88}
+        - {x: -52, y: 88}
+        - {x: -67, y: 78}
+    - name: chicken_idle_1
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 0
+        width: 180
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -38, y: 88}
+        - {x: -78, y: 79}
+        - {x: -90, y: 50}
+        - {x: -90, y: -50}
+        - {x: -26, y: -88}
+        - {x: -9, y: -88}
+        - {x: 90, y: 7}
+        - {x: 90, y: 62}
+        - {x: 81, y: 88}
+    - name: chicken_idle_2
+      rect:
+        serializedVersion: 2
+        x: 361
+        y: 0
+        width: 179
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 32.5, y: 88}
+        - {x: 16.5, y: 82}
+        - {x: 9.5, y: 54}
+        - {x: 9.5, y: 48}
+        - {x: 10.5, y: 45}
+        - {x: 14.5, y: 41}
+        - {x: 10.5, y: 46}
+        - {x: 8.5, y: 50}
+        - {x: -2.5, y: 73}
+        - {x: -89.5, y: 76}
+        - {x: -89.5, y: -51}
+        - {x: -27.5, y: -88}
+        - {x: -9.5, y: -88}
+        - {x: 89.5, y: 15}
+        - {x: 89.5, y: 44}
+        - {x: 72.5, y: 88}
+    - name: chicken_idle_3
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 0
+        width: 179
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 32.5, y: 88}
+        - {x: 16.5, y: 82}
+        - {x: 9.5, y: 54}
+        - {x: 9.5, y: 48}
+        - {x: 10.5, y: 45}
+        - {x: 14.5, y: 41}
+        - {x: 10.5, y: 46}
+        - {x: 8.5, y: 50}
+        - {x: -2.5, y: 73}
+        - {x: -89.5, y: 76}
+        - {x: -89.5, y: -51}
+        - {x: -27.5, y: -88}
+        - {x: -9.5, y: -88}
+        - {x: 89.5, y: 15}
+        - {x: 89.5, y: 44}
+        - {x: 72.5, y: 88}
+    outline: []
   spritePackingTag: 
   userData: 
   assetBundleName: 
