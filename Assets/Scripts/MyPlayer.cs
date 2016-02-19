@@ -78,6 +78,7 @@ public class MyPlayer : Character
 
     private void die()
     {
+		print ("PENIS");
         transform.position = initialPosition;
 		HudLivesManager.lives -= 1;
 		PlayerPrefs.SetInt("Lives", HudLivesManager.lives);
@@ -114,7 +115,7 @@ public class MyPlayer : Character
 
     private void HandleInput()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Jump"))
         {
             isJump = true;
         }
@@ -163,24 +164,25 @@ public class MyPlayer : Character
     void OnTriggerEnter2D(Collider2D other)
     {
         GameObject o = other.gameObject;
-        if (o.CompareTag("Pickups"))
-        {
-            //			Vector2 otherCenter = new Vector2(o.transform.position.x, o.transform.position.y);
-            //			if(boxCollider2D.OverlapPoint(otherCenter)){
-            other.gameObject.SetActive(false);
+		if (o.CompareTag ("Pickups")) {
+			//			Vector2 otherCenter = new Vector2(o.transform.position.x, o.transform.position.y);
+			//			if(boxCollider2D.OverlapPoint(otherCenter)){
+			other.gameObject.SetActive (false);
 			coins++;
-			SaveCoinScore(coins, false);
-            //			}
-            //			print ("boxCollider2D : " + boxCollider2D.transform.position.ToString());
-            //			print ("otherCenter : " + otherCenter.ToString());
-        }
-        else if (o.CompareTag("Flag"))
-        {
-            //Win condition
-            print("Flag picked");
-            SaveCoinScore(coins, true);
-            loadNextScene();
-        }
+			SaveCoinScore (coins, false);
+			//			}
+			print("coin");
+			//			print ("boxCollider2D : " + boxCollider2D.transform.position.ToString());
+			//			print ("otherCenter : " + otherCenter.ToString());
+		} else if (o.CompareTag ("Flag")) {
+			//Win condition
+			print("flag");
+			SaveCoinScore (coins, true);
+			loadNextScene ();
+		} else if (o.CompareTag ("Enemy")) {
+			print ("OUCH");
+			die ();
+		}
     }
 
     public void loadNextScene()
