@@ -78,7 +78,6 @@ public class MyPlayer : Character
 
     private void die()
     {
-		print ("PENIS");
         transform.position = initialPosition;
 		HudLivesManager.lives -= 1;
 		PlayerPrefs.SetInt("Lives", HudLivesManager.lives);
@@ -171,17 +170,24 @@ public class MyPlayer : Character
 			coins++;
 			SaveCoinScore (coins, false);
 			//			}
-			print("coin");
 			//			print ("boxCollider2D : " + boxCollider2D.transform.position.ToString());
 			//			print ("otherCenter : " + otherCenter.ToString());
 		} else if (o.CompareTag ("Flag")) {
 			//Win condition
-			print("flag");
 			SaveCoinScore (coins, true);
 			loadNextScene ();
 		} else if (o.CompareTag ("Enemy")) {
-			print ("OUCH");
-			die ();
+			FarmerScript farmerScript = o.GetComponent<FarmerScript>();
+			if (farmerScript) {
+				if (farmerScript.isAttacking) {
+					die ();
+					farmerScript.isAttacking = false;
+				} else {
+					farmerScript.isAttacking = true;
+				}
+			} else {
+				die ();
+			}
 		}
     }
 
