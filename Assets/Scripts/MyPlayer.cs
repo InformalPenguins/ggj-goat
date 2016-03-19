@@ -34,6 +34,14 @@ public class MyPlayer : Character
 
     private Vector3 initialPosition;
 
+	public bool isDying;
+
+	SpriteRenderer spriteRenderer;
+
+	GameObject child;
+
+	SpriteRenderer deathSpriteRenderer;
+
     // Use this for initialization
     public override void Start()
     {
@@ -42,6 +50,10 @@ public class MyPlayer : Character
         boxCollider2D = GetComponent<BoxCollider2D>();
         coins = GetCoinScore();
         initialPosition = transform.position;
+		spriteRenderer = GetComponent<SpriteRenderer>();
+		child = transform.GetChild (0).gameObject;
+		deathSpriteRenderer = child.GetComponent<SpriteRenderer> ();
+		deathSpriteRenderer.enabled = false;
     }
 
     // Update is called once per frame
@@ -66,6 +78,9 @@ public class MyPlayer : Character
         ResetValues();
 
         checkVerticalPosition();
+
+		boxCollider2D.enabled = !isDying;
+
     }
 
     private void checkVerticalPosition()
@@ -78,12 +93,26 @@ public class MyPlayer : Character
 
     private void die()
     {
-        transform.position = initialPosition;
+		deathSpriteRenderer.enabled = true;
+		spriteRenderer.enabled = false;
+		if (!isDying) {
+			MyAnimator.SetBool ("isDying", isDying);
+			Invoke ("reallyDie", 2);
+			isDying = true;
+		}
+    }
+
+	private void reallyDie() {
+		transform.position = initialPosition;
+		isDying = false;
+		spriteRenderer.enabled = true;
+		deathSpriteRenderer.enabled = false;
 		HudLivesManager.lives -= 1;
 		PlayerPrefs.SetInt("Lives", HudLivesManager.lives);
-        //lives -- 
-        // if lives == 0 gameover
-    }
+		//lives -- 
+		// if lives == 0 gameover
+		
+	}
 
     private void HandleMovement(float horizontal)
     {
