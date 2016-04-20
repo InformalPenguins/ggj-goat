@@ -97,7 +97,7 @@ public class MyPlayer : Character
 		spriteRenderer.enabled = false;
 		if (!isDying) {
 			MyAnimator.SetBool ("isDying", isDying);
-			Invoke ("reallyDie", 0.5);
+			Invoke ("reallyDie", 0.5f);
 			isDying = true;
 		}
     }
